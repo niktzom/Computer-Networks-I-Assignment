@@ -30,7 +30,7 @@ public class gpsCoordinates extends images {
 				Gps_req_stream = new FileOutputStream(Output_from_gps_req);
 				
 			}catch (IOException x) {
-				System.out.println("Exception! Cannot initialize the output stream. The output file remain as null (0)" );
+				System.out.println("Exception! Cannot initialize the output stream. The output file remain as null " );
 			}
 			String GpsPointsR = "";
 			for (;;) {
@@ -96,7 +96,7 @@ public class gpsCoordinates extends images {
 			try {
 				img_gps_stream = new FileOutputStream(image_with_gps);
 			}catch (IOException x) {
-				System.out.println("Exception! Cannot initialize the output stream. The output file remain as null (0)" );
+				System.out.println("Exception! Cannot initialize the output stream. The output file remain as null " );
 			}
 
 			do {

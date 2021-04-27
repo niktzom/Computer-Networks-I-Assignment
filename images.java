@@ -23,7 +23,7 @@ public class images extends echo {
 			img_free_stream = new FileOutputStream(image_free);
 			
 		}catch (IOException x) {
-			System.out.println("Exception! Cannot initialize the output stream. The output file remain as null (0)" );
+			System.out.println("Exception! Cannot initialize the output stream. The output file remain as null " );
 		}
 
 		int current_pixel;
@@ -90,7 +90,7 @@ public class images extends echo {
 			img_error_stream = new FileOutputStream(image_with_error);
 			
 		}catch (IOException x) {
-			System.out.println("Exception! Cannot initialize the output stream. The output file remain as null (0)" );
+			System.out.println("Exception! Cannot initialize the output stream. The output file remain as null " );
 		}
 		int pixel_cur;
 		int last_pixel = 0;
