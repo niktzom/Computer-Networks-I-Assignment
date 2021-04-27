@@ -15,8 +15,16 @@ public class images extends echo {
 		modem.write(imgreq);
 
 	
+		
+		FileOutputStream img_free_stream =null;
 		File image_free = new File("image_free.jpeg");
-		FileOutputStream img_free_stream = new FileOutputStream(image_free);
+		
+		try {
+			img_free_stream = new FileOutputStream(image_free);
+			
+		}catch (IOException x) {
+			System.out.println("Exception! Cannot initialize the output stream. The output file remain as null (0)" );
+		}
 
 		int current_pixel;
 		int last_pixel = 0;
@@ -75,9 +83,15 @@ public class images extends echo {
 		byte[] imgreq = userApplication.image_error_request_code.getBytes();
 		modem.write(imgreq);
 
+		FileOutputStream img_error_stream = null;
 		File image_with_error = new File("‪image_with_error.jpeg");
-		FileOutputStream img_error_stream = new FileOutputStream(image_with_error);
-
+		
+		try {
+			img_error_stream = new FileOutputStream(image_with_error);
+			
+		}catch (IOException x) {
+			System.out.println("Exception! Cannot initialize the output stream. The output file remain as null (0)" );
+		}
 		int pixel_cur;
 		int last_pixel = 0;
 		boolean image_e_flag = false;

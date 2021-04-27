@@ -23,10 +23,15 @@ public class gpsCoordinates extends images {
 			String[] per_line;
 			
 			
-
+			FileOutputStream  Gps_req_stream=null;
 			File Output_from_gps_req = new File("Gps_req.txt");
 
-			FileOutputStream Gps_req_stream = new FileOutputStream(Output_from_gps_req);
+			try {
+				Gps_req_stream = new FileOutputStream(Output_from_gps_req);
+				
+			}catch (IOException x) {
+				System.out.println("Exception! Cannot initialize the output stream. The output file remain as null (0)" );
+			}
 			String GpsPointsR = "";
 			for (;;) {
 				j = modem.read();
@@ -84,8 +89,15 @@ public class gpsCoordinates extends images {
 			boolean image_gps_flag = false;
 			ArrayList<Byte> img_with_gps = new ArrayList<Byte>();
 
+			FileOutputStream  img_gps_stream=null;
+
 			File image_with_gps = new File("‪image_with_gps.jpeg");
-			FileOutputStream img_gps_stream = new FileOutputStream(image_with_gps);
+			
+			try {
+				img_gps_stream = new FileOutputStream(image_with_gps);
+			}catch (IOException x) {
+				System.out.println("Exception! Cannot initialize the output stream. The output file remain as null (0)" );
+			}
 
 			do {
 				j = modem.read();
