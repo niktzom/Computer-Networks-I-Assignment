@@ -1,2 +1,2 @@
-# Computer-Networks-I-Assignement
-Semester assignement of the 6th semester course "Computer Networks I".
+# Computer-Networks-I-Assignment
+Semester assignment of the 6th semester course "Computer Networks I".
