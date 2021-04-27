@@ -15,9 +15,9 @@ public class arqPackages extends gpsCoordinates {
 		File Time_for_arq = new File("Time_arq.txt");
 		FileOutputStream time_arq_stream = new FileOutputStream(Time_for_arq);
 
-		//4λεπτος έλεγχος σε κάθε πακέτο μεχρι τον όρο -PSTOP-
-		//εαν κάθε ο όρος XOR των bytes ισούται με το FCS
-		//Για κάθε πακέτο που δεν ισχύει αυτό μετράμε τον αριθμό των επαναπροσπαθειών μέχρι να το πετύχουμε
+		//For 4 minutes, check every package -until the "PSTOP" substring- if the XOR of the encrypted bytes is equal to FCS.
+		//Then for every package, measure the retries which are needed to achieve the equallity. 
+		//If the equality was achieved with the first attempt, give ACK request else give NACK request.
 		long start, end;
 		int k, ACK_pack = 0, arq_pack = 0, retry = 0;
 		int[] NACK_pack_retries = new int[8];
@@ -126,6 +126,7 @@ public class arqPackages extends gpsCoordinates {
 
 	}
 
+			//We check the string inside each package if XOR is equal to FCS using the boolean method
 	public static boolean check_for_arq(String text) {
 		
 		String sequence;
@@ -141,8 +142,6 @@ public class arqPackages extends gpsCoordinates {
 		}
 		FCS = Integer.parseInt(text.substring(text.indexOf(">") + 2, text.indexOf("PSTOP") - 1));
 		return (FCS == prevC);
-		
-		//Λαμβάνουμε το string που περιεχέται σε κάθε πακέτο και με την boolean ελέχγουμε
-		//εάν ο όρος XOR ισόυται με το FCS
+
 	}
 }

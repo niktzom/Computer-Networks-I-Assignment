@@ -31,7 +31,7 @@ public class images extends echo {
 		boolean image_flag = false;
 
 		ArrayList<Byte> img_free = new ArrayList<Byte>();
-		//Έλεγχος για το αρχικό delimeter της εικόνας
+		//Check for the starting delimeter of our image
 		do {
 			current_pixel = modem.read();
 			if (current_pixel == 255) {
@@ -56,7 +56,7 @@ public class images extends echo {
 
 			if (current_pixel == -1)
 				break;
-			//Έλεγχος έως το τελικό delimeter
+			//Check for the last delimiter of our image
 			if (last_pixel == 255 && current_pixel == 217) {
 				System.out.println("Image received!");
 				img_free.add((byte) current_pixel);
@@ -66,7 +66,7 @@ public class images extends echo {
 			last_pixel = current_pixel;
 		}
 		System.out.println("Image without error at " + LocalDateTime.now());
-		//μετατροπή του arraylist σε .jpeg μορφή. 
+		//arraylist to .jpeg form
 		try {
 			img_free_stream.write(convertBytes(img_free));
 			img_free_stream.close();
@@ -97,7 +97,7 @@ public class images extends echo {
 		boolean image_e_flag = false;
 
 		ArrayList<Byte> img_with_error = new ArrayList<Byte>();
-		//Έλεγχος για το αρχικό delimeter της εικόνας
+		//Check for the starting delimeter of our image
 		do {
 			pixel_cur = modem.read();
 			if (pixel_cur == 255) {
@@ -122,7 +122,7 @@ public class images extends echo {
 
 			if (pixel_cur == -1)
 				break;
-			//Έλεγχος έως το τελικό delimeter
+			//Check for the last delimiter of our image
 			if (last_pixel == 255 && pixel_cur == 217) {
 				System.out.println("Image with error received!");
 				img_with_error.add((byte) pixel_cur);
@@ -132,7 +132,7 @@ public class images extends echo {
 			last_pixel = pixel_cur;
 		}
 		System.out.println("Image with error at " + LocalDateTime.now());
-		//μετατροπή του arraylist σε .jpeg μορφή.
+		// arraylist to .jpeg form.
 		try {
 			img_error_stream.write(convertBytes(img_with_error));
 			img_error_stream.close();
@@ -141,6 +141,7 @@ public class images extends echo {
 		}
 
 	}
+	
 	
 	public static byte[] convertBytes(ArrayList<Byte> bytes) {
 		byte[] ret = new byte[bytes.size()];

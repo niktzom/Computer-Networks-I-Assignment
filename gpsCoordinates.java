@@ -8,8 +8,10 @@ import ithakimodem.Modem;
 
 public class gpsCoordinates extends images {
 	public static void gpsCoordinatesR(Modem modem, String req) throws IOException {
-		String GpsPoints = "R=1018099\r";// Session 2
-			//String GpsPoints = "R=1010099\r";// Session 1
+			
+			//choosing the route(X)/starting coordinates(PPPP)/number of tracks(LL) following the R=XPPPPLL pattern
+			String GpsPoints = "R=1018099\r";// Session 1
+			//String GpsPoints = "R=1010099\r";// Session 2
 			req = req + GpsPoints;
 			byte[] req_gps =req.getBytes();
 			modem.write(req_gps);
@@ -46,11 +48,11 @@ public class gpsCoordinates extends images {
 			} catch (IOException x) {
 				System.out.println(x);
 			}
-			// Διαχωρισμός του string με τις πληροφορίες του gps για κάθε γραμμή.
+			// Split the GPS string info for every new line
 			per_line = gps_txt.split("\r\n");
 			int count = 0;
 			double time = 0, curr_time = 0;
-			//Για κάθε γραμμή που περιέχει το "$GPGGA", βρίσκουμε το κομμάτι που αναφέρεται στον χρόνο.
+			//For every line with the tag "$GPGGA", find the substring which contains the info about time.
 			if (per_line[1].indexOf("$GPGGA") > -1) {
 				temp_string = per_line[1].substring(per_line[1].indexOf("$GPGGA") + 7, per_line[1].indexOf("$GPGGA") + 13);
 				time = Double.parseDouble(temp_string);
@@ -59,18 +61,18 @@ public class gpsCoordinates extends images {
 			int index = 1;
 			for (int requests = 0; requests < 4; requests++) {
 				curr_time = time;
-				//Για κάθε γραμμή βρίσκουμε το κομμάτι που αναφέρεται στο πλάτος(Amplitude).
+				//finding the substring containing the Amplitude.
 				temp_string = per_line[index].substring(per_line[index].indexOf("A") + 13,
 						per_line[index].indexOf("N") - 1);
 				num = Double.parseDouble(temp_string);
 				Amplitude = convertCoordinates(num);
-				// αντίστοιχα το length.
+				// finding the substring containing the length.
 				temp_string = per_line[index].substring(per_line[index].indexOf("N") + 2, per_line[index].indexOf("E") - 1);
 				num = Double.parseDouble(temp_string);
 				Length = convertCoordinates(num);
 				GpsPointsR += "T=" + Length + Amplitude;
-				// Διαφορά 15 δευτέρων για κάθε διαδοχικό σημείο.
-				while (count < 99 && time - curr_time < 15) {
+				// check for the sequentially points, to differ at least 12 seconds.
+				while (count < 99 && time - curr_time < 12) {
 					index = 1 + count;
 					if (per_line[index].indexOf("$GPGGA") > -1) {
 						temp_string = per_line[index].substring(per_line[index].indexOf("$GPGGA") + 7,
@@ -99,6 +101,7 @@ public class gpsCoordinates extends images {
 				System.out.println("Exception! Cannot initialize the output stream. The output file remain as null " );
 			}
 
+			//generating the GPS image
 			do {
 				j = modem.read();
 				if (j == -1)
@@ -136,7 +139,7 @@ public class gpsCoordinates extends images {
 
 	
 	public static String convertCoordinates(double num) {
-		// Δημιουργία του num
+		//creating the string of the transformed coordinates in the requisite format
 		String final_string;
 		int int_part;
 		double fr_part;

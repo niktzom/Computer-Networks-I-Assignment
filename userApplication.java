@@ -17,7 +17,7 @@ public class userApplication extends arqPackages {
 	}
 	
 	
-// Αρχικοποίηση του modem
+// Initialize modem
 	public static Modem modem_initialization() {
 		Modem modem;
 		modem = new Modem();
@@ -42,16 +42,16 @@ public class userApplication extends arqPackages {
 	public void applications() throws IOException {
 		System.out.println("The Session has started at " + LocalDateTime.now());
 		Modem modem = modem_initialization();
-		////// Λήψη Echo Packages 
-		echoPackages(modem);
-		///// ARQ
-		ARQerror(modem);
-		////// Image Without Error
-		 imageWithoutError(modem);
-		////// Image With Error
-		 imageWithError(modem);
-		////// R Gps Request
-		 gpsCoordinatesR(modem, gps_request_code);
+			////// get Echo Packages 
+			echoPackages(modem);
+			///// ARQ
+			ARQerror(modem);
+			////// Image Without Error
+			 imageWithoutError(modem);
+			////// Image With Error
+			 imageWithError(modem);
+			////// R Gps Request
+			 gpsCoordinatesR(modem, gps_request_code);
 		
 		System.out.println("The Session has ended at " + LocalDateTime.now());
 

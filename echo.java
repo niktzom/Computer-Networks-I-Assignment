@@ -19,17 +19,19 @@ public class echo {
 		FileOutputStream echo_stream = new FileOutputStream(Output_from_echo);
 		FileOutputStream time_stream = new FileOutputStream(Time_for_echo);
 
-		// Έναρξη μέτρησης του χρόνου αποστολής
+		// Start measuring the time of our exchange
 		long begin = System.currentTimeMillis(); 
 		long start, end;
 		String echostring = "";
 		String response = "";
 		
-		while ((System.currentTimeMillis() - begin) < 240000) // 4λεπτη αποστολή πακέτων
+		while ((System.currentTimeMillis() - begin) < 240000) // a 4 minutes package exchange
 		{
 			String inside_text = "";
 			start = System.currentTimeMillis();
 			modem.write(echo_req); 
+			
+			//spliting the string when we come across the "PSTOP" string for every new line
 			for (;;) {
 				j = modem.read();
 				if (j != -1) {
